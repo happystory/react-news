@@ -111,7 +111,8 @@ module.exports = {
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
+          /\.styl$/
         ],
         loader: 'url',
         query: {
@@ -126,7 +127,8 @@ module.exports = {
         loader: 'babel',
         query: {
           plugins: [
-            ['import', [{ libraryName: "antd", style: 'css' }]]
+            ['import', [{ libraryName: "antd", style: 'css' }]],
+            'react-html-attrs'
           ],
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -168,9 +170,13 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
-      }
+      },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
+      {
+        test: /\.styl$/,
+        loader: 'style!css!postcss!stylus'
+      }
     ]
   },
   
