@@ -1,9 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import PCIndex from './js/components/pc_index';
+import './css/pc.css';
+import 'antd/dist/antd.css';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+export default class Root extends React.Component {
+    render() {
+        return (
+            <div>
+                <PCIndex />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render( 
+    <Root /> ,
+    document.getElementById('root')
 );
+
