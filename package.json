@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "antd": "^2.9.0",
+    "fetch": "^1.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-responsive": "^1.2.7"
+    "react-responsive": "^1.2.7",
+    "react-router-dom": "^4.0.0"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
