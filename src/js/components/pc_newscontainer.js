@@ -4,6 +4,7 @@ import {Tabs, Carousel} from 'antd';
 const TabPane = Tabs.TabPane;
 import PCNewsBlock from './pc_news_block';
 import PCNewsImageBlock from './pc_news_image_block';
+import PCProduct from './pc_product';
 
 export default class PCNewsContainer extends React.Component {
 
@@ -32,14 +33,21 @@ export default class PCNewsContainer extends React.Component {
                             </div>
                             <PCNewsImageBlock count={6} type="guoji" width="100%" cartTitle="国际头条" imageWidth="104px"/>
                         </div>
-                        <Tabs class="tabs_news">  
-                            <TabPane tab="头条新闻" key="1">
-                                <PCNewsBlock count={22} type="top" width="100%" bordered="false"/>
-                            </TabPane>
-                            <TabPane tab="国际" key="2">
-                                <PCNewsBlock count={22} type="guoji" width="100%" bordered="false"/>
-                            </TabPane>
-                        </Tabs>
+                        <div>
+                            <Tabs class="tabs_news">  
+                                <TabPane tab="头条新闻" key="1">
+                                    <PCNewsBlock count={22} type="top" width="100%" bordered="false"/>
+                                </TabPane>
+                                <TabPane tab="国际" key="2">
+                                    <PCNewsBlock count={22} type="guoji" width="100%" bordered="false"/>
+                                </TabPane>
+                            </Tabs>
+                            <Tabs class="tabs_product">
+                                <TabPane tab="ReactNews 产品" key="1">
+                                    <PCProduct />
+                                </TabPane>
+                            </Tabs>
+                        </div>
                         <PCNewsImageBlock count={8} type="guonei" width="100%" cartTitle="国内新闻" imageWidth="104px"/>
                         <PCNewsImageBlock count={16} type="yule" width="100%" cartTitle="娱乐新闻" imageWidth="104px"/>
                     </Col>
