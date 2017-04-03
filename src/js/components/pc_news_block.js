@@ -28,9 +28,9 @@ export default class PCNewsBlock extends React.Component {
         news.map((newsItem, index) => (
             <li key={index}>
                 <HashRouter>
-                <Link to={`details/${newsItem.uniquekey}`} target="_blank">
-                    {newsItem.title}
-                </Link>
+                    <Link to={`details/${newsItem.uniquekey}`} target="_blank">
+                        {newsItem.title}
+                    </Link>
                 </HashRouter>
             </li>
         ))
