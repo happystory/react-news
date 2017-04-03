@@ -1,11 +1,9 @@
 import React from 'react';
 import 'whatwg-fetch';
 import {Row, Col} from 'antd';
-import { Menu, Icon, Tabs, message, Form, Input, Button, CheckBox, Modal} from 'antd';
+import { Menu, Icon, Tabs, message, Form, Input, Button, Modal} from 'antd';
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 import logo from '../../images/logo.png';
 import {Link, HashRouter} from 'react-router-dom';
 
@@ -22,7 +20,6 @@ class PCHeader extends React.Component {
     }
 
     componentWillMount() {
-        console.log(localStorage.userid)
         if (localStorage.userid) {
             this.setState({
                 hasLogined: true,
@@ -106,7 +103,7 @@ class PCHeader extends React.Component {
                 </Button>
                 &nbsp;&nbsp;
                 <HashRouter>
-                    <Link target="_blank" to="/" style={{display: 'inline'}}>
+                    <Link target="_blank" to={`/usercenter`} style={{display: 'inline'}}>
                     <Button type="dashed" htmlType="button">
                         个人中心
                     </Button>

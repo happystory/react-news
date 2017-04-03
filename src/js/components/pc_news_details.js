@@ -4,6 +4,7 @@ import 'whatwg-fetch';
 import PCHeader from './pc_header';
 import PCFooter from './pc_footer';
 import PCNewsImageBlock from './pc_news_image_block';
+import CommonComments from './comment_comments';
 
 export default class PCNewsDeatails extends React.Component {
     constructor() {
@@ -14,7 +15,6 @@ export default class PCNewsDeatails extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.match.params.uniquekey)
         var url = `http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=${this.props.match.params.uniquekey}`;
         var options = {
             method: 'GET'
@@ -40,6 +40,7 @@ export default class PCNewsDeatails extends React.Component {
                     <Col span={2}></Col>
                     <Col span={15} class="container">
                         <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkUp()}></div>
+                        <CommonComments uniquekey={this.props.match.params.uniquekey} />
                     </Col>
                     <Col span={1}></Col>
                     <Col span={4}>

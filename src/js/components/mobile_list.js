@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row, Col} from 'antd';
 import 'whatwg-fetch';
-import {HashRouter, Route, Link, browerHistory} from 'react-router-dom';
+import {HashRouter, Link} from 'react-router-dom';
 
 export default class MobileList extends React.Component {
     constructor() {

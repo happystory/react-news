@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PCIndex from './js/components/pc_index';
 import MobileIndex from './js/components/mobile_index';
+import PCUserCenter from './js/components/pc_usercenter';
+import MobileUserCenter from './js/components/mobile_usercenter';
 
 import './css/pc.styl';
 import './css/mobile.styl';
@@ -25,6 +27,7 @@ export default class Root extends React.Component {
                         <div>
                             <Route exact path="/" component={PCIndex}></Route>
                             <Route path="/details/:uniquekey" component={PCNewsDetails}></Route>
+                            <Route path="/usercenter" component={PCUserCenter}></Route>
                         </div>
                     </HashRouter>
                 </MediaQuery>
@@ -33,6 +36,7 @@ export default class Root extends React.Component {
                         <div>
                             <Route exact path="/" component={MobileIndex}></Route>
                             <Route path="/details/:uniquekey" component={MobileNewsDeatails}></Route>
+                            <Route path="/usercenter" component={MobileUserCenter}></Route>
                         </div>
                     </HashRouter>
                 </MediaQuery>

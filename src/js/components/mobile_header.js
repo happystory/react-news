@@ -1,9 +1,7 @@
 import React from 'react';
-import { Menu, Icon, Tabs, message, Form, Input, Button, Modal} from 'antd';
+import { Icon, Tabs, message, Form, Input, Button, Modal} from 'antd';
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 import logo from '../../images/logo.png';
 import {Link, HashRouter} from 'react-router-dom';
 
@@ -24,7 +22,7 @@ class MobileHeader extends React.Component {
     }
 
     handleClick(e) {
-        if (e.key = 'register') {
+        if (e.key === 'register') {
             this.setState({current: 'register'});
             this.setModalVisible(true);
         } else {
@@ -79,7 +77,7 @@ class MobileHeader extends React.Component {
         let {getFieldDecorator} = this.props.form;
         const userShow = this.state.hasLogined ?
             <HashRouter>
-                <Link target="_blank" to="/">
+                <Link to={`/usercenter`}>
                     <Icon type="inbox" />
                 </Link>
             </HashRouter>

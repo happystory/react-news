@@ -3,6 +3,7 @@ import {Row, Col, BackTop} from 'antd';
 import 'whatwg-fetch';
 import MobileHeader from './mobile_header';
 import MobileFooter from './mobile_footer';
+import CommonComments from './comment_comments';
 
 export default class MobileNewsDeatails extends React.Component {
     constructor() {
@@ -13,7 +14,6 @@ export default class MobileNewsDeatails extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.match.params.uniquekey)
         var url = `http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=${this.props.match.params.uniquekey}`;
         var options = {
             method: 'GET'
@@ -40,6 +40,8 @@ export default class MobileNewsDeatails extends React.Component {
                         <Col span={1}></Col>
                         <Col span={22} class="container">
                             <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkUp()}></div>
+                            <hr />
+                            <CommonComments uniquekey={this.props.match.params.uniquekey} />
                         </Col>
                         <Col span={1}></Col>
                     </Row>
