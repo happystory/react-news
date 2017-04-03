@@ -7,7 +7,7 @@ const FormItem = Form.Item;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 import logo from '../../images/logo.png';
-import {Link} from 'react-router-dom';
+import {Link, HashRouter} from 'react-router-dom';
 
 class PCHeader extends React.Component {
     constructor() {
@@ -21,12 +21,23 @@ class PCHeader extends React.Component {
         };
     }
 
+    componentWillMount() {
+        console.log(localStorage.userid)
+        if (localStorage.userid) {
+            this.setState({
+                hasLogined: true,
+                userNickName: localStorage.getItem('userNickName'),
+                userid: localStorage.getItem('userid')
+            });
+        }
+    }
+
     setModalVisible(value) {
         this.setState({modalVisible: value});
     }
 
     handleClick(e) {
-        if (e.key = 'register') {
+        if (e.key === 'register') {
             this.setState({current: 'register'});
             this.setModalVisible(true);
         } else {
@@ -34,13 +45,15 @@ class PCHeader extends React.Component {
         }
     }
 
+
     handleSubmit(e) {
         e.preventDefault();
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 // console.log(values);
-                var url = 'http://newsapi.gugujiankong.com/Handler.ashx?action=register' + 
+                var url = `http://newsapi.gugujiankong.com/Handler.ashx?action=${this.state.action}` + 
+                `&userName=${values.userName}&password=${values.password}` +
                 `&r_userName=${values.r_userName}&r_password=${values.r_password}&r_confirmPassword=${values.r_confirmPassword}`;
                 // console.log(url);
                 // 
@@ -53,6 +66,14 @@ class PCHeader extends React.Component {
                     .then(response => response.json())
                     .then(json => {
                         this.setState({userNickName: json.NickUserName, userid: json.UserId});
+
+                        localStorage.setItem('userid', json.UserId);
+                        localStorage.setItem('userNickName', json.NickUserName);
+
+                        if (this.state.action === 'login') {
+                            this.setState({hasLogined: true});
+                        }
+
                         message.success('请求成功');
                         this.setModalVisible(false);
                     });
@@ -60,22 +81,40 @@ class PCHeader extends React.Component {
         });
     }
 
+    logout() {
+        localStorage.removeItem('userid');
+        localStorage.removeItem('userNickName');
+        this.setState({hasLogined: false});
+        console.log(this.state.hasLogined)
+    }
+
+    callback(key) {
+        if (key === '1') {
+            this.setState({action: 'login'});
+        } else if (key === '2') {
+            this.setState({action: 'register'});
+        }
+    }
+
     render() {
         let {getFieldDecorator} = this.props.form;
         const userShow = this.state.hasLogined
             ?
-            <Menu.Item key="logout" class="register">
+            <Menu.Item key="logout" class="logout">
                 <Button type="primary" htmlType="button">
                     {this.state.userNickName}
                 </Button>
                 &nbsp;&nbsp;
-                <Link target="_blank">
+                <HashRouter>
+                    <Link target="_blank" to="/" style={{display: 'inline'}}>
                     <Button type="dashed" htmlType="button">
                         个人中心
                     </Button>
                 </Link>
+                </HashRouter>
+                
                 &nbsp;&nbsp;
-                <Button type="ghost" htmlType="button">
+                <Button type="ghost" htmlType="button" onClick={this.logout.bind(this)}>
                     退出
                 </Button>
             </Menu.Item>
@@ -116,26 +155,48 @@ class PCHeader extends React.Component {
                             onCancel={()=>this.setModalVisible(false)}
                             onOk={()=>this.setModalVisible(false)}
                             okText="关闭">
-                            <Tabs type="card">
+                            <Tabs type="card" onChange={this.callback.bind(this)}>
+
+                                <TabPane tab="登录" key="1">
+                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                        <FormItem>
+                                          {getFieldDecorator('userName', {
+                                            rules: [{ required: false, message: 'Please input your username!' }],
+                                          })(
+                                            <Input prefix={<Icon type="user" />} placeholder="请输入用户名" />
+                                          )}
+                                        </FormItem>
+                                        <FormItem>
+                                          {getFieldDecorator('password', {
+                                            rules: [{ required: false, message: 'Please input your Password!' }],
+                                          })(
+                                            <Input prefix={<Icon type="lock" />} type="password" placeholder="请输入密码" />
+                                          )}
+                                        </FormItem>
+                                        <Button type="primary" htmlType="submit">登录</Button>
+                                    </Form>
+                                </TabPane>
+
+
                                 <TabPane tab="注册" key="2">
                                     <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                                         <FormItem>
                                           {getFieldDecorator('r_userName', {
-                                            rules: [{ required: true, message: 'Please input your username!' }],
+                                            rules: [{ required: false, message: 'Please input your username!' }],
                                           })(
                                             <Input prefix={<Icon type="user" />} placeholder="请输入用户名" />
                                           )}
                                         </FormItem>
                                         <FormItem>
                                           {getFieldDecorator('r_password', {
-                                            rules: [{ required: true, message: 'Please input your Password!' }],
+                                            rules: [{ required: false, message: 'Please input your Password!' }],
                                           })(
                                             <Input prefix={<Icon type="lock" />} type="password" placeholder="请输入密码" />
                                           )}
                                         </FormItem>
                                         <FormItem>
                                           {getFieldDecorator('r_confirmPassword', {
-                                            rules: [{ required: true, message: 'Please input your Password!' }],
+                                            rules: [{ required: false, message: 'Please input your Password!' }],
                                           })(
                                             <Input prefix={<Icon type="lock" />} type="password" placeholder="请再次输入密码" />
                                           )}
